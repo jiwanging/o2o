@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.felix.o2o.dao.ProductDao"> 
+	<insert id="insertProduct" parameterType="com.felix.o2o.entity.Product" 
+	useGeneratedKeys = "true" keyColumn = "product_id" keyProperty = "productId">
+	insert into
+		tb_product(product_id,product_name,product_desc,img_addr,normal_price,promotion_price,
+		priority,create_time,last_edit_time,enable_status,product_category_id,shop_id)
+	VALUES
+		(#{productId},#{productName},#{productDesc},#{imgAddr},
+		#{normalPrice},#{promotionPrice},#{priority},#{createTime},#{lastEditTime},#{enableStatus},
+		#{productCategory.productCategoryId},#{shop.shopId})
+	</insert>
+	
+	<update id="updataProduct" parameterType="com.felix.o2o.entity.Product" 
+		    useGeneratedKeys = "true" keyColumn = "product_id" keyProperty = "productId">
+		UPDATE tb_product 
+		<set>
+			<if test = "productName != null">product_name = #{productName},</if>
+			<if test = "productDesc != null">product_desc = #{productDesc},</if>
+			<if test = "imgAddr != null">img_addr = #{imgAddr},</if>
+			<if test = "normalPrice != null">normal_price = #{normalPrice},</if>
+			<if test = "promotionPrice != null">promotion_price = #{promotionPrice},</if>
+			<if test = "priority != null">priority = #{priority},</if>
+			<if test = "lastEditTime != null">last_edit_time = #{lastEditTime},</if>
+			<if test = "enableStatus != null">enable_status = #{enableStatus},</if>
+			<if test = "productCategory != null">product_category_id = #{productCategory.productCategoryId},</if>
+			<if test = "shop != null">shop_id = #{shop.shopId}</if>
+			<where>
+				product_id = #{productId}
+			</where>
+		</set> 
+	</update>
+	
+	<!-- 通过productId查询商品信息 -->
+	<resultMap type = "com.felix.o2o.entity.Product" id = "productMap">
+		<id column = "product_id" property="productId"/>
+		<result column = "product_name" property="productName"/>
+		<result column = "product_desc" property="productDesc"/>
+		<result column = "img_addr" property="imgAddr"/>
+		<result column = "normal_price" property="normalPrice"/>
+		<result column = "promotion_price" property="promotionPrice"/>
+		<result column = "priority" property="priority"/>
+		<result column = "create_time" property="createTime"/>
+		<result column = "last_edit_time" property="lastEditTime"/>
+		<result column = "enable_status" property="enableStatus"/>
+		<!-- 定义复合类型 -->
+		<association property="productCategory" column = "product_category_id" javaType = "com.felix.o2o.entity.ProductCategory">
+			<id column = "product_category_id" property="productCategoryId"/>
+		</association>
+		<association property="shop" column = "shop_id" javaType = "com.felix.o2o.entity.Shop">
+			<id column = "shop_id" property="shopId"/>
+		</association>
+	</resultMap>
+	<select id = "queryByProductId" resultMap="productMap" parameterType="Long" resultType="com.felix.o2o.entity.Product">
+		select 
+		p.product_id,
+		p.product_name,
+		p.product_desc,
+		p.img_addr,
+		p.normal_price,
+		p.promotion_price,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status,
+		p.product_category_id,
+		p.shop_id
+		from tb_product p
+		where p.product_id = #{productId}
+	</select>
+	
+	<!-- 查询商品列表 -->
+	<select id = "queryProductList" resultMap="productMap">
+		select 
+		p.product_id,
+		p.product_name,
+		p.product_desc,
+		p.img_addr,
+		p.normal_price,
+		p.promotion_price,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status,
+		pc.product_category_id,
+		s.shop_id
+		from tb_product p, tb_product_category pc, tb_shop s
+		<where>
+			<if test = "productCondition.productCategory != null and
+			productCondition.productCategory.productCategoryId != null">
+				and p.product_category_id 
+				= #{productCondition.productCategory.productCategoryId}
+			</if>
+			
+			<if test = "productCondition.shop != null and
+			productCondition.shop.shopId != null">
+				and p.shop_id 
+				= #{productCondition.shop.shopId}
+			</if>
+			
+			<if test = "productCondition.productName != null">
+				and p.product_name like '%${productCondition.productName}%'
+			</if>
+			
+			<if test = "productCondition.enableStatus != null">
+				and p.enable_status = #{productCondition.enableStatus}
+			</if>
+			order by 
+			p.priority desc
+			limit #{rowIndex},#{pageSize};
+		</where>
+	</select>
+	<select id = "queryproductCount" resultType = "int">
+		select 
+		count(1)
+		from tb_product p, tb_product_category pc,tb_shop s
+		where p.product_category_id = pc.product_category_id
+		      and p.shop_id = s.shop_id
+	</select>
+
+</mapper>

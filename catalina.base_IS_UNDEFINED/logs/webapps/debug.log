@@ -1,0 +1,18 @@
+2019-12-31 09:57:48.845[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2019123109574813588.jpg
+2019-12-31 09:57:49.059[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2019123109574813588.jpg
+2019-12-31 09:58:24.233[main]DEBUGcom.felix.o2o.dao.ProductDao.insertProduct-==>  Preparing: insert into tb_product(product_id,product_name,product_desc,img_addr,normal_price,promotion_price, priority,create_time,last_edit_time,enable_status,product_category_id,shop_id) VALUES (?,?,?,?, ?,?,?,?,?,?, ?,?) 
+2019-12-31 09:58:27.271[main]DEBUGcom.felix.o2o.dao.ProductDao.insertProduct-==> Parameters: null, 冰淇淋(String), 很好吃的冰淇淋(String), \upload\items\shop1\2019123109574813588.jpg(String), 11(String), 9.9(String), 2(Integer), 2019-12-31 09:57:42.826(Timestamp), 2019-12-31 09:57:44.17(Timestamp), 1(Integer), null, 1(Long)
+2019-12-31 09:58:27.400[main]DEBUGcom.felix.o2o.dao.ProductDao.insertProduct-<==    Updates: 1
+2019-12-31 09:59:17.002[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2019123109574813588.jpg2019123109591622142.jpg
+2019-12-31 09:59:17.011[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2019123109574813588.jpg2019123109591622142.jpg
+2019-12-31 09:59:39.835[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2019123109574813588.jpg2019123109593972509.jpg
+2019-12-31 09:59:39.850[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2019123109574813588.jpg2019123109593972509.jpg
+2019-12-31 09:59:45.248[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-==>  Preparing: insert into tb_product_img(img_addr,img_desc,priority,create_time,product_id) values ( ?, ?, ?, ?, ? ) , ( ?, ?, ?, ?, ? ) 
+2019-12-31 09:59:45.326[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-==> Parameters: \upload\items\shop1\2019123109574813588.jpg2019123109591622142.jpg(String), 商品详情图(String), 1(Integer), 2019-12-31 09:59:15.626(Timestamp), 6(Long), \upload\items\shop1\2019123109574813588.jpg2019123109593972509.jpg(String), 商品详情图(String), 1(Integer), 2019-12-31 09:59:38.567(Timestamp), 6(Long)
+2019-12-31 09:59:45.450[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-<==    Updates: 2
+2019-12-31 21:18:35.376[main]DEBUGc.f.o.dao.ProductCategoryDao.deleteProductCategory-==>  Preparing: delete from tb_product_category where product_category_id = ? and shop_id = ?; 
+2019-12-31 21:18:35.483[main]DEBUGc.f.o.dao.ProductCategoryDao.deleteProductCategory-==> Parameters: 12(Long), 1(Long)
+2019-12-31 21:18:35.589[main]DEBUGc.f.o.dao.ProductCategoryDao.deleteProductCategory-<==    Updates: 0
+2019-12-31 21:32:54.797[main]DEBUGc.f.o.dao.ProductCategoryDao.queryProductCategory-==>  Preparing: select product_category_id, product_category_name, priority, create_time, shop_id from tb_product_category where shop_id = ? order by priority desc; 
+2019-12-31 21:32:54.838[main]DEBUGc.f.o.dao.ProductCategoryDao.queryProductCategory-==> Parameters: 1(Long)
+2019-12-31 21:32:54.917[main]DEBUGc.f.o.dao.ProductCategoryDao.queryProductCategory-<==      Total: 6
