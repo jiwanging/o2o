@@ -27,14 +27,14 @@ public class ProductImgDaoTest extends BaseTest{
 		p1.setImgDesc("≤‚ ‘Õº∆¨1");
 		p1.setPriority(1);
 		p1.setCreateTime(new Date());
-		p1.setProductId(1L);
+		p1.setProductId(2L);
 		
 		ProductImg p2 = new ProductImg();
 		p2.setImgAddr("Õº∆¨2");
 		p2.setImgDesc("≤‚ ‘Õº∆¨2");
 		p2.setPriority(2);
 		p2.setCreateTime(new Date());
-		p2.setProductId(1L);
+		p2.setProductId(2L);
 		
 		List<ProductImg> list = new ArrayList<ProductImg>();
 		list.add(p1);
@@ -54,7 +54,7 @@ public class ProductImgDaoTest extends BaseTest{
 	
 	@Test
 	public void testCDeleteByproductImgId() throws Exception{
-		int num = productImgDao.deleteProductImgByProductId(1L);
+		int num = productImgDao.deleteProductImgByProductId(6L);
 		System.out.println("-----------------"+"÷¥––ÕÍ±œ”∞œÏ–– ˝"+num+"-----------------");
 	}
 }

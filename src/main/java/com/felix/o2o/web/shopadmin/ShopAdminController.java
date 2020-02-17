@@ -44,8 +44,8 @@ public class ShopAdminController {
 	 * 进入商品编辑界面
 	 * @return
 	 */
-	@RequestMapping(value = "/productedit" ,method = {RequestMethod.GET})
-	public String productedit() {
+	@RequestMapping(value = "/productoperation" ,method = {RequestMethod.GET})
+	public String productoperation() {
 		return "shop/productoperation";//返回路径
 	}
 	

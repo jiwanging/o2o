@@ -1,18 +1,45 @@
-2019-12-31 09:57:48.845[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2019123109574813588.jpg
-2019-12-31 09:57:49.059[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2019123109574813588.jpg
-2019-12-31 09:58:24.233[main]DEBUGcom.felix.o2o.dao.ProductDao.insertProduct-==>  Preparing: insert into tb_product(product_id,product_name,product_desc,img_addr,normal_price,promotion_price, priority,create_time,last_edit_time,enable_status,product_category_id,shop_id) VALUES (?,?,?,?, ?,?,?,?,?,?, ?,?) 
-2019-12-31 09:58:27.271[main]DEBUGcom.felix.o2o.dao.ProductDao.insertProduct-==> Parameters: null, 冰淇淋(String), 很好吃的冰淇淋(String), \upload\items\shop1\2019123109574813588.jpg(String), 11(String), 9.9(String), 2(Integer), 2019-12-31 09:57:42.826(Timestamp), 2019-12-31 09:57:44.17(Timestamp), 1(Integer), null, 1(Long)
-2019-12-31 09:58:27.400[main]DEBUGcom.felix.o2o.dao.ProductDao.insertProduct-<==    Updates: 1
-2019-12-31 09:59:17.002[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2019123109574813588.jpg2019123109591622142.jpg
-2019-12-31 09:59:17.011[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2019123109574813588.jpg2019123109591622142.jpg
-2019-12-31 09:59:39.835[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2019123109574813588.jpg2019123109593972509.jpg
-2019-12-31 09:59:39.850[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2019123109574813588.jpg2019123109593972509.jpg
-2019-12-31 09:59:45.248[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-==>  Preparing: insert into tb_product_img(img_addr,img_desc,priority,create_time,product_id) values ( ?, ?, ?, ?, ? ) , ( ?, ?, ?, ?, ? ) 
-2019-12-31 09:59:45.326[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-==> Parameters: \upload\items\shop1\2019123109574813588.jpg2019123109591622142.jpg(String), 商品详情图(String), 1(Integer), 2019-12-31 09:59:15.626(Timestamp), 6(Long), \upload\items\shop1\2019123109574813588.jpg2019123109593972509.jpg(String), 商品详情图(String), 1(Integer), 2019-12-31 09:59:38.567(Timestamp), 6(Long)
-2019-12-31 09:59:45.450[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-<==    Updates: 2
-2019-12-31 21:18:35.376[main]DEBUGc.f.o.dao.ProductCategoryDao.deleteProductCategory-==>  Preparing: delete from tb_product_category where product_category_id = ? and shop_id = ?; 
-2019-12-31 21:18:35.483[main]DEBUGc.f.o.dao.ProductCategoryDao.deleteProductCategory-==> Parameters: 12(Long), 1(Long)
-2019-12-31 21:18:35.589[main]DEBUGc.f.o.dao.ProductCategoryDao.deleteProductCategory-<==    Updates: 0
-2019-12-31 21:32:54.797[main]DEBUGc.f.o.dao.ProductCategoryDao.queryProductCategory-==>  Preparing: select product_category_id, product_category_name, priority, create_time, shop_id from tb_product_category where shop_id = ? order by priority desc; 
-2019-12-31 21:32:54.838[main]DEBUGc.f.o.dao.ProductCategoryDao.queryProductCategory-==> Parameters: 1(Long)
-2019-12-31 21:32:54.917[main]DEBUGc.f.o.dao.ProductCategoryDao.queryProductCategory-<==      Total: 6
+2020-02-16 17:50:34.585[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 17:50:34.647[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 1(Long)
+2020-02-16 17:57:14.410[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 17:57:14.454[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 1(Long)
+2020-02-16 17:57:14.564[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-<==      Total: 0
+2020-02-16 17:58:49.927[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 17:58:49.972[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 11(Long)
+2020-02-16 18:01:18.469[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 18:01:18.898[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 11(Long)
+2020-02-16 18:06:33.322[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 18:06:33.369[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 11(Long)
+2020-02-16 18:06:33.458[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-<==      Total: 1
+2020-02-16 18:10:14.418[main]DEBUGcom.felix.o2o.dao.ProductDao.updateProduct-==>  Preparing: update tb_product SET product_name = ?, product_desc = ?, img_addr = ?, normal_price = ?, promotion_price = ?, priority = ?, create_time = ?, last_edit_time = ?, enable_status = ?, product_category_id = ? where product_id = ? and shop_id=? 
+2020-02-16 18:10:14.468[main]DEBUGcom.felix.o2o.dao.ProductDao.updateProduct-==> Parameters: 咖啡(String), 很好喝的咖啡1111(String), 测试地址1(String), 10.00(String), 10.00(String), 2(Integer), 2020-02-16 18:10:12.769(Timestamp), 2020-02-16 18:10:12.769(Timestamp), 1(Integer), 1(Long), 2(Long), 1(Long)
+2020-02-16 18:10:14.571[main]DEBUGcom.felix.o2o.dao.ProductDao.updateProduct-<==    Updates: 1
+2020-02-16 18:13:14.580[main]DEBUGc.f.o.d.ProductImgDao.deleteProductImgByProductId-==>  Preparing: delete from tb_product_img where product_id = ? 
+2020-02-16 18:13:14.629[main]DEBUGc.f.o.d.ProductImgDao.deleteProductImgByProductId-==> Parameters: 6(Long)
+2020-02-16 18:13:14.747[main]DEBUGc.f.o.d.ProductImgDao.deleteProductImgByProductId-<==    Updates: 2
+2020-02-16 21:47:20.113[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 21:47:20.151[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 2(Long)
+2020-02-16 21:47:20.227[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-<==      Total: 0
+2020-02-16 21:49:06.057[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 21:49:06.430[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 2(Long)
+2020-02-16 21:49:06.786[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-<==      Total: 0
+2020-02-16 21:52:14.269[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==>  Preparing: select p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr as detail_img, pm.img_desc, pm.priority, pm.create_time from tb_product p left join tb_product_img pm on p.product_id = ? where p.product_id = pm.product_id order by pm.priority DESC 
+2020-02-16 21:52:14.309[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-==> Parameters: 11(Long)
+2020-02-16 21:52:14.413[main]DEBUGcom.felix.o2o.dao.ProductDao.queryProductById-<==      Total: 1
+2020-02-16 21:52:14.480[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2020021621521482047.jpg
+2020-02-16 21:52:14.481[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2020021621521482047.jpg
+2020-02-16 21:52:17.116[main]DEBUGc.felix.o2o.dao.ProductImgDao.queryProductImgList-==>  Preparing: select product_img_id, img_addr, img_desc, priority, create_time, product_id from tb_product_img where product_id = ? ORDER BY priority DESC 
+2020-02-16 21:52:17.117[main]DEBUGc.felix.o2o.dao.ProductImgDao.queryProductImgList-==> Parameters: 11(Long)
+2020-02-16 21:52:17.168[main]DEBUGc.felix.o2o.dao.ProductImgDao.queryProductImgList-<==      Total: 1
+2020-02-16 21:52:17.178[main]DEBUGc.f.o.d.ProductImgDao.deleteProductImgByProductId-==>  Preparing: delete from tb_product_img where product_id = ? 
+2020-02-16 21:52:17.180[main]DEBUGc.f.o.d.ProductImgDao.deleteProductImgByProductId-==> Parameters: 11(Long)
+2020-02-16 21:52:17.311[main]DEBUGc.f.o.d.ProductImgDao.deleteProductImgByProductId-<==    Updates: 1
+2020-02-16 21:52:17.313[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2020021621521732575.jpg
+2020-02-16 21:52:17.314[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2020021621521732575.jpg
+2020-02-16 21:52:19.661[main]DEBUGcom.felix.o2o.util.ImageUtil-curren relativeAddr: \upload\items\shop1\2020021621521927392.jpg
+2020-02-16 21:52:19.661[main]DEBUGcom.felix.o2o.util.ImageUtil-curren complete Addr is : D:\projectdev\image\upload\items\shop1\2020021621521927392.jpg
+2020-02-16 21:52:19.733[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-==>  Preparing: insert into tb_product_img(img_addr,img_desc,priority,create_time,product_id) values ( ?, ?, ?, ?, ? ) , ( ?, ?, ?, ?, ? ) 
+2020-02-16 21:52:19.737[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-==> Parameters: \upload\items\shop1\2020021621521732575.jpg(String), null, null, 2020-02-16 21:52:19.66(Timestamp), 11(Long), \upload\items\shop1\2020021621521927392.jpg(String), null, null, 2020-02-16 21:52:19.7(Timestamp), 11(Long)
+2020-02-16 21:52:19.834[main]DEBUGc.f.o2o.dao.ProductImgDao.batchInsertProductImg-<==    Updates: 2
+2020-02-16 21:52:19.861[main]DEBUGcom.felix.o2o.dao.ProductDao.updateProduct-==>  Preparing: update tb_product SET product_name = ?, product_desc = ?, img_addr = ?, normal_price = ?, promotion_price = ?, priority = ?, last_edit_time = ? where product_id = ? and shop_id=? 
+2020-02-16 21:52:19.869[main]DEBUGcom.felix.o2o.dao.ProductDao.updateProduct-==> Parameters: 咖啡(String), 很好喝的咖啡2333(String), \upload\items\shop1\2020021621521482047.jpg(String), 11(String), 9.9(String), 2(Integer), 2020-02-16 21:52:12.694(Timestamp), 11(Long), 1(Long)
+2020-02-16 21:52:19.965[main]DEBUGcom.felix.o2o.dao.ProductDao.updateProduct-<==    Updates: 1

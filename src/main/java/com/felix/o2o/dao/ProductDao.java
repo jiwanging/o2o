@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.felix.o2o.entity.Product;
-import com.felix.o2o.entity.Shop;
 
 public interface ProductDao {
 
@@ -41,4 +40,18 @@ public interface ProductDao {
 	 * @return
 	 */
 	int queryProductCount(@Param("productCondition") Product product);
+	
+	/**
+	 * 通过product id查询商品信息 包括图片等相关信息 
+	 * @param productId
+	 * @return 影响的行数
+	 */
+	Product queryProductById(long productId);
+	
+	/**
+	 * 通过商品信息 包括图片等相关信息 
+	 * @param product
+	 * @return 影响的行数
+	 */
+	int updateProduct(Product product);
 }

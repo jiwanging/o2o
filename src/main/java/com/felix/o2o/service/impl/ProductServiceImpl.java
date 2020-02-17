@@ -103,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
 			throw new ShopOperationException("addShop error"+e.getMessage());
 		}
 		
-		return new ProductExecution(ProductStateEnum.CHECK,product);//返回成功的状态
+		return new ProductExecution(ProductStateEnum.SUCCESS,product);//返回成功的状态
 	}
 	
 	/**
@@ -143,6 +143,90 @@ public class ProductServiceImpl implements ProductService {
 		String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
 		String productImgAddr = ImageUtil.generateThumbnail(thumbnail.getInputStream(),thumbnail.getFileName(),dest);
 		product.setImgAddr(productImgAddr);
+	}
+
+	@Override
+	public Product getProductById(Long productId) throws ProductOperationException {
+		return productDao.queryProductById(productId);
+	}
+	
+	//
+	@Override
+	public ProductExecution modifyProduct(Product product, ImageHolder thumbnail, List<ImageHolder> productImgHolderList)
+			throws ProductOperationException {
+		//空值判断
+		if(product != null &&  product.getShop() != null
+				&& product.getShop().getShopId() != null){
+			product.setLastEditTime(new Date());
+			//若缩略图不为空，则删除原来的再进行添加
+			if(thumbnail != null) {
+				Product tempProduct =  productDao.queryProductById(
+						product.getProductId());
+				//如果原来有缩略图 物理位置上的删除
+				if(tempProduct.getImgAddr() != null) {
+					ImageUtil.deleteFileOrPath(tempProduct.getImgAddr());
+				}
+				addThumbnail(product,thumbnail);
+			}
+			//如果有新存入的商品详情图 则将原先的删除 并添加新的图片
+			if(productImgHolderList != null && productImgHolderList.size() > 0) {
+				deleteProductImg(product.getProductId());;
+				addProductImgList(product,productImgHolderList);
+			}
+			try {
+				int effectedNum = productDao.updateProduct(product);//更新商品信息
+				if(effectedNum <= 0) {
+					throw new ProductOperationException("商品信息更新失败");
+				}
+				return new ProductExecution(ProductStateEnum.SUCCESS,product);
+			}catch (Exception e) {
+				throw new ProductOperationException("商品信息更新失败"+e.toString());
+			}
+		}else {
+			return new ProductExecution(ProductStateEnum.EMPTY);
+		}
+	}
+
+	private void addProductImgList(Product product, List<ImageHolder> productImgHolderList) {
+		
+		//1.图片存入本地文件夹中
+		List<ProductImg> ProductImgList = new ArrayList<ProductImg>();//存每张详情图的新地址
+		String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
+		for(ImageHolder productImgHolder : productImgHolderList) {
+		     String imgAddr = ImageUtil.generateNormalImg(productImgHolder.getInputStream(),
+		    		 productImgHolder.getFileName(), dest);
+		     ProductImg productImg = new ProductImg();
+		     productImg.setImgAddr(imgAddr);
+		     productImg.setProductId(product.getProductId());
+		     productImg.setCreateTime(new Date());
+		     ProductImgList.add(productImg);
+		}
+		//2.图片地址存入数据库
+		if(ProductImgList.size() > 0 ) {
+			try {
+				int effectedNum = productImgDao.batchInsertProductImg(ProductImgList);
+				if(effectedNum <= 0) {
+					throw new ProductOperationException("详情图信息添加失败");
+				}
+			}catch (Exception e) {
+				throw new ProductOperationException("详情图信息添加失败"+e.toString());
+			}
+		}
+	}
+
+	//批量删除原有的详情图
+	private void deleteProductImg(Long productId) {
+		List<ProductImg> productImgList = productImgDao.queryProductImgList(productId);
+		for(ProductImg productImg : productImgList) {
+			ImageUtil.deleteFileOrPath(productImg.getImgAddr());
+		}
+		productImgDao.deleteProductImgByProductId(productId);//从数据库删除原有的详情图
+	}
+
+	private void addThumbnail(Product product, ImageHolder thumbnail) {
+        String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
+        String thumbnailAddr = ImageUtil.generateThumbnail(thumbnail.getInputStream(), thumbnail.getFileName(), dest);
+		product.setImgAddr(thumbnailAddr);
 	}
 
 }

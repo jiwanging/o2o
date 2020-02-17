@@ -90,15 +90,15 @@ public class ProductCategorymanagementController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/removeproductcategorylist", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeproductcategory", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String ,Object> removeProductCategory(Long productCategoryId, HttpServletRequest request){
 		Map<String ,Object> modelMap = new HashMap<String ,Object>();
 		if(productCategoryId != null && productCategoryId > 0) {
 			try {
-				Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+				Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");//从session中取出当前的店铺id
 				ProductCategoryExecution pe = 
-						productCategoryService.deleteProductCategory(productCategoryId, 1L);
+						productCategoryService.deleteProductCategory(productCategoryId, 1L);//这里写死了删除店铺1的对应商品类别
 				if(pe.getState() == ProductCategoryStateEnum.SUCCESS.getState()) {
 					modelMap.put("success", true);
 				}else {

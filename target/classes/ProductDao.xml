@@ -34,7 +34,7 @@
 	</update>
 	
 	<!-- 通过productId查询商品信息 -->
-	<resultMap type = "com.felix.o2o.entity.Product" id = "productMap">
+	<!-- <resultMap type = "com.felix.o2o.entity.Product" id = "productMap">
 		<id column = "product_id" property="productId"/>
 		<result column = "product_name" property="productName"/>
 		<result column = "product_desc" property="productDesc"/>
@@ -45,7 +45,7 @@
 		<result column = "create_time" property="createTime"/>
 		<result column = "last_edit_time" property="lastEditTime"/>
 		<result column = "enable_status" property="enableStatus"/>
-		<!-- 定义复合类型 -->
+		定义复合类型
 		<association property="productCategory" column = "product_category_id" javaType = "com.felix.o2o.entity.ProductCategory">
 			<id column = "product_category_id" property="productCategoryId"/>
 		</association>
@@ -69,7 +69,7 @@
 		p.shop_id
 		from tb_product p
 		where p.product_id = #{productId}
-	</select>
+	</select> -->
 	
 	<!-- 查询商品列表 -->
 	<select id = "queryProductList" resultMap="productMap">
@@ -107,17 +107,110 @@
 			<if test = "productCondition.enableStatus != null">
 				and p.enable_status = #{productCondition.enableStatus}
 			</if>
-			order by 
-			p.priority desc
-			limit #{rowIndex},#{pageSize};
 		</where>
+		order by 
+		p.priority desc
+		limit #{rowIndex},#{pageSize};
 	</select>
-	<select id = "queryproductCount" resultType = "int">
+	<select id="queryProductCount" resultType="Integer">
+        SELECT count(1)
+        FROM tb_product
+        <where>
+            <if test="productCondition.shop != null and  productCondition.shop.shopId != null ">
+                and shop_id = #{productCondition.shop.shopId}
+            </if>
+            <!-- 根据product_category_id  查询-->
+            <if test="productCondition.productCategory != null and productCondition.productCategory.productCategoryId != null">
+                and product_category_id = #{productCondition.productCategory.productCategoryId}
+            </if>
+            <!-- 根据enable_status  查询-->
+            <if test="productCondition.enableStatus != null">
+                and enable_status = #{productCondition.enableStatus}
+            </if>
+            <!-- 根据product_name  模糊查询-->
+            <if test="productCondition.productName != null">
+                and product_name  like '%${productCondition.productName}%'
+            </if>
+        </where>
+    </select>
+	
+	<!-- 通过productId查询商品详细信息 用于商品的编辑 -->
+	<resultMap type = "com.felix.o2o.entity.Product" id = "productMap">
+		<id column = "product_id" property="productId"/>
+		<result column = "product_name" property="productName"/>
+		<result column = "product_desc" property="productDesc"/>
+		<result column = "img_addr" property="imgAddr"/>
+		<result column = "normal_price" property="normalPrice"/>
+		<result column = "promotion_price" property="promotionPrice"/>
+		<result column = "priority" property="priority"/>
+		<result column = "create_time" property="createTime"/>
+		<result column = "last_edit_time" property="lastEditTime"/>
+		<result column = "enable_status" property="enableStatus"/>
+		<!-- 定义复合类型 -->
+		<association property="productCategory" column = "product_category_id" javaType = "com.felix.o2o.entity.ProductCategory">
+			<id column = "product_category_id" property="productCategoryId"/>
+			<result column = "product_category_name" property="productCategoryName"/>
+		</association>
+		<association property="shop" column = "shop_id" javaType = "com.felix.o2o.entity.Shop">
+			<id column = "shop_id" property="shopId"/>
+			<result column = "owner_id" property="ownerId"/>
+			<result column = "shop_name" property="shopName"/>
+		</association>
+		<collection property="productImgList" column = "product_id" ofType = "com.felix.o2o.entity.ProductImg">
+			<id column = "product_img_id" property="productImgId"/>
+			<result column = "img_addr" property="imgAddr"/>
+			<result column = "img_desc" property="imgDesc"/>
+			<result column = "priority" property="priority"/>
+			<result column = "create_time" property="createTime"/>
+			<result column = "product_id" property="productId"/>
+		</collection>
+	</resultMap>
+	<select id = "queryProductById" resultMap="productMap" parameterType="Long" resultType="com.felix.o2o.entity.Product">
 		select 
-		count(1)
-		from tb_product p, tb_product_category pc,tb_shop s
-		where p.product_category_id = pc.product_category_id
-		      and p.shop_id = s.shop_id
+		p.product_id,
+		p.product_name,
+		p.product_desc,
+		p.img_addr,
+		p.normal_price,
+		p.promotion_price,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status,
+		p.product_category_id,
+		p.shop_id,
+		pm.product_img_id,
+		pm.img_addr as detail_img,
+		pm.img_desc,
+		pm.priority,
+		pm.create_time
+		from tb_product p
+		left join tb_product_img pm
+		on p.product_id = #{productId}
+		where p.product_id = pm.product_id
+		order by pm.priority DESC
 	</select>
 
+	<!-- 更新商品的详细信息 用于商品的编辑 -->
+	<update id = "updateProduct"  parameterType="com.felix.o2o.entity.Product"
+	keyProperty="product_id" >
+		update tb_product
+		<set>
+			<if test="productName != null">product_name = #{productName},</if>
+			<if test="productDesc != null">product_desc = #{productDesc},</if>
+			<if test="imgAddr != null">img_addr = #{imgAddr},</if>
+			<if test="normalPrice != null">normal_price = #{normalPrice},</if>
+			<if test="promotionPrice != null">promotion_price = #{promotionPrice},</if>
+			<if test="priority != null">priority = #{priority},</if>
+			<if test="createTime != null">create_time = #{createTime},</if>
+			<if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
+			<if test="enableStatus != null">enable_status = #{enableStatus},</if>
+			<if test="productCategory != null 
+			and productCategory.productCategoryId != null">
+			product_category_id = #{productCategory.productCategoryId}</if>
+		</set> 	
+		where product_id = #{productId}
+		and shop_id=#{shop.shopId} 
+	</update>
+    
 </mapper>

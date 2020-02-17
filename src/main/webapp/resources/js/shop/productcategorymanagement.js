@@ -33,8 +33,9 @@ $(function(){
 	/**
 	 * 主要用于删除商品列表信息
 	 */
-	function removeProductCategory(status,id){
-			return '<a hef = "#" class="button delete">删除</a>';
+	function removeProductCategory(productCategoryId,id){
+			return '<a hef = "#" class="button delete" data-id="'+
+			productCategoryId+'">删除</a>';
 	}
 	
 	/**
@@ -79,10 +80,11 @@ $(function(){
 		})
 	});
 	
+	
 	/**
 	 * 还未添加进数据库的数据删除按钮的功能
 	 */
-	$('.productcategory-wrap').on('click','.row-product-category.temp.detele',
+	$('.productcategory-wrap').on('click','.row-product-category.temp .delete',//注意这里的空格
 			function(e){
 		console.log($(this).parent().parent());
 		$(this).parent().parent().remove();
@@ -91,26 +93,29 @@ $(function(){
 	/**
 	 * 已添加进数据库的数据删除按钮的功能
 	 */
-	$('.productcategory-wrap').on('click','.row-product-category.now.detele',
+	$('.productcategory-wrap').on('click','.row-product-category.now .delete',
 			function(e){
 		var target = e.currentTarget;
-		$.confirm('确定么？',function(){
-			$.ajax({
-				url:deleteUrl,
-				type:'POST',
-				data:{
-					productCategoryId:target.dataset.id
-				},
-				dataType:'json',
-				success:function(data){
-					if(data.success){
-						$.toast('删除成功！');
-						getList();
-					}else{
-						$.toast('删除失败！');
-					}
+
+		$.ajax({
+			url:deleteUrl,
+			type:'POST',
+			data:{
+				productCategoryId:target.dataset.id
+			},
+			dataType:'json',
+			success:function(data){
+				if(data.success){
+					$.toast('删除成功');
+					getList();
+				}else{
+					$.toast('删除失败');
 				}
-			});
+			}
 		});
+		//以下代码执行不了了 为什么
+//		$.confirm('is sure?',function(){
+//			$.toast('不删除');
+//		});
 	});
 });

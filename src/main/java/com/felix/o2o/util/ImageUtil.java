@@ -76,6 +76,34 @@ public class  ImageUtil{
 		}
 		return relativeAddr;//返回图片的相对路径 用于数据库进行存储 相对路径不受机器的限制
 	}
+	
+	/**
+	 * 处理详情图 并返回新生成图片的相对路径
+	 * @param thumbnail
+	 * @param targetAddr
+	 * @return
+	 */
+	public static String generateNormalImg(InputStream ImgInputStream,String fileName,String targetAddr) {
+		String realFileName = getRandomFileName();//获取唯一的随机文件名
+		String extension = getFileExtension(fileName);//获取扩展名
+		makeDirPath(targetAddr);//在指定路径上创建目录
+		String relativeAddr = targetAddr + realFileName + extension;
+		logger.debug("curren relativeAddr: " + relativeAddr);
+		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
+		logger.debug("curren complete Addr is : " + dest);
+		try {
+			Thumbnails.of(ImgInputStream).size(200, 200)
+			.watermark(Positions.BOTTOM_RIGHT,
+					ImageIO.read(new File(basePath + "/watermaker.jpg")),0.25f)
+			.outputQuality(0.8f).toFile(dest);
+			
+		}catch(IOException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
+		}
+		return relativeAddr;//返回图片的相对路径 用于数据库进行存储 相对路径不受机器的限制
+	}
+
 
 	/**
 	 * 创建目标路径（用户指定的目录）上所涉及到的目录 即/home/work/felix/xxx.jpg

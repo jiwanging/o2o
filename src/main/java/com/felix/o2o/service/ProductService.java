@@ -6,7 +6,9 @@ import java.util.List;
 import com.felix.o2o.dto.ProductExecution;
 import com.felix.o2o.dto.ShopExecution;
 import com.felix.o2o.entity.Product;
+import com.felix.o2o.entity.ProductImg;
 import com.felix.o2o.entity.Shop;
+import com.felix.o2o.exceptions.ProductOperationException;
 import com.felix.o2o.exceptions.ShopOperationException;
 import com.felix.o2o.util.ImageHolder;
 
@@ -46,4 +48,22 @@ public interface ProductService {
 	 * @throws ShopOperationException
 	 */
 	public ShopExecution modifyShop(Shop shop, InputStream shopImagInputStream,String fileName)throws ShopOperationException;
+	
+	/**
+	 * 根据传入的product数据 修改对应的商品信息的方法
+	 * @param product
+	 * @param shopImagInputStream
+	 * @param fileName
+	 * @return
+	 * @throws ShopOperationException
+	 */
+	public ProductExecution modifyProduct(Product product, ImageHolder imageHolder,List<ImageHolder> productList)throws ProductOperationException;
+
+	/**
+	 * 根据传入的id信息 查询相关的商品信息的方法
+	 * @param productId
+	 * @return product
+	 * @throws ProductOperationException
+	 */
+	public Product getProductById(Long productId)throws ProductOperationException;
 }

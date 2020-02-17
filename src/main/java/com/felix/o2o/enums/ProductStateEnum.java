@@ -8,8 +8,8 @@ public enum ProductStateEnum {
 	PASS(2,"通过认证"),
 	INNER_ERROR(-1001,"内部系统错误"),
 	NUll_PRODUCTID(-1002,"ShoId为空"),
-	NULL_PRODUCT(-1003,"product信息为空");
-	
+	NULL_PRODUCT(-1003,"product信息为空"),
+	EMPTY(-1004,"待编辑的商品信息为空");
 	private int state;//状态
 	private String stateInfo;//状态信息
 	
