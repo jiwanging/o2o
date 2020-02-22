@@ -18,6 +18,13 @@ public class ProductDaoTest extends BaseTest{
 	private ProductDao productDao;
 	
 	@Test
+	public void testUpdateProductCategoryIToNull() {
+		long productCategoryId = 14L;
+		int num = productDao.updateProductCategoryToNull(productCategoryId);
+		System.out.println("影响的行数是："+num+"---------");
+	}
+	
+	@Test
 	@Ignore
 	public void testUpdateProduct() {
 		Product product = new Product();
@@ -76,6 +83,31 @@ public class ProductDaoTest extends BaseTest{
 		product.setShop(shop);
 		List<Product> list = productDao.queryProductList(product, 0, 10);
 		System.out.println("-----------------"+"商品个数"+list.size()+"-----------------");
+	}
+	
+	@Test
+	@Ignore
+	public void queryProductCount() {
+		Product product = new Product();
+		product.setProductName("咖啡");
+		product.setProductDesc("很好喝的咖啡");
+		product.setImgAddr("测试地址1");
+		product.setNormalPrice("10.00");
+		product.setPromotionPrice("10.00");
+		product.setPriority(2);
+		product.setCreateTime(new Date());
+		product.setLastEditTime(new Date());
+		product.setEnableStatus(1);
+		
+		ProductCategory productCategory = new ProductCategory();
+		productCategory.setProductCategoryId(1L);
+		product.setProductCategory(productCategory);
+		
+		Shop shop = new Shop();
+		shop.setShopId(1L);
+		product.setShop(shop);
+		int count = productDao.queryProductCount(product);
+		System.out.println("-----------------"+"商品个数"+count+"-----------------");
 	}
 	
 	

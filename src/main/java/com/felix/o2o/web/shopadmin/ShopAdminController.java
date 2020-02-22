@@ -49,4 +49,14 @@ public class ShopAdminController {
 		return "shop/productoperation";//返回路径
 	}
 	
+	/**
+	 * 进入商品管理界面
+	 * @return
+	 */
+	@RequestMapping(value = "/productmanagement" ,method = {RequestMethod.GET})
+	public String productManagement() {
+		return "shop/productmanagement";//返回路径
+	}
+	
+	
 }

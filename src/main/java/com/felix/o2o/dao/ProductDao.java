@@ -54,4 +54,11 @@ public interface ProductDao {
 	 * @return 影响的行数
 	 */
 	int updateProduct(Product product);
+	
+	/**
+	 * 删除商品类别之前 先将商品类别id置为空 
+	 * @param productCategoryId
+	 * @return 影响的行数
+	 */
+	int updateProductCategoryToNull(long productCategoryId);
 }

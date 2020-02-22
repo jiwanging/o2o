@@ -6,5 +6,10 @@ import com.felix.o2o.entity.ShopCategory;
 
 public interface ShopCategoryService {
 
-	public List<ShopCategory> queryShopCategory(ShopCategory shopCategoryCondition);//
+	/**
+	 * 根据查询条件  获取shopcategory列表
+	 * @param shopCategoryCondition
+	 * @return
+	 */
+	public List<ShopCategory> getShopCategoryList(ShopCategory shopCategoryCondition);//
 }

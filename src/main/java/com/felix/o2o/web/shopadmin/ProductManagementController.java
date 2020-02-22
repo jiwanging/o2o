@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.felix.o2o.dto.ProductExecution;
-import com.felix.o2o.entity.Area;
 import com.felix.o2o.entity.Product;
 import com.felix.o2o.entity.ProductCategory;
 import com.felix.o2o.entity.Shop;
@@ -47,13 +45,76 @@ public class ProductManagementController {
 	private static final int IMAGEMAXCOUNT = 1;
 	
 	/**
+	 * 根据商品id信息返回数据库中的商品信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getproductlistbyshop", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String ,Object>  getProductListByShop(HttpServletRequest request){
+		
+		 Map<String ,Object> modelMap = new HashMap<String ,Object>();
+		 //获取从前台传过来的页码
+		 int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		// 获取前端传过来的每页要求返回的商品数量
+        int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+ 
+        // 从session中获取shop信息，主要是获取shopId 不依赖前台的参数，尽可能保证安全
+        Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+        currentShop = new Shop();
+        currentShop.setShopId(1L);
+        // 空值判断
+        if ((pageIndex > -1) && (pageSize > -1) && currentShop != null && currentShop.getShopId() != null) {
+            // 获取前台可能传递过来的需要检索的条件，包括是否需要从某个商品类别以及根据商品名称模糊查询某个店铺下的商品
+            long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
+            String productName = HttpServletRequestUtil.getString(request, "productName");
+            Product productCondition = compactProductConditionSearch(currentShop.getShopId(), productCategoryId, productName);
+            // 调用服务进行查询
+            ProductExecution pe = productService.getProductList(productCondition, pageIndex, pageSize);
+            // 将结果返回给前台
+            modelMap.put("productList", pe.getProductList());
+            modelMap.put("count", pe.getCount());
+            modelMap.put("success", true);
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "empty pageSize or pageIndex or shopId");
+        }
+        return modelMap; 
+	}
+	
+	/**
+     * 组合查询条件，并将条件封装到ProductCondition对象里返回
+     * 
+     * @param shopId
+     * @param productCategoryId
+     * @param productName
+     * @return
+     */
+    private Product compactProductConditionSearch(long shopId, long productCategoryId, String productName) {
+        Product productCondition = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(shopId);
+        productCondition.setShop(shop);
+        if (productCategoryId != -1L) {
+            // 查询某个商品类别下面的商品列表
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.setProductCategoryId(productCategoryId);
+            productCondition.setProductCategory(productCategory);
+        }
+        if (productName != null) {
+            // 查询名字里包含productName的店铺列表
+            productCondition.setProductName(productName);
+        }
+        // 只允许选出状态为上架的商品
+        productCondition.setEnableStatus(1);
+        return productCondition;
+    }
+	
+	/**
 	 * 根据界面提交的信息修改指定的商品信息
 	 * @param request
 	 * @return
 	 */
-	   /*
-	    * 我们完成修改product的controller操作
-	    * */
 	    @RequestMapping(value ="/modifyproduct" ,method = RequestMethod.POST)
 	    @ResponseBody
 	    private  Map<String,Object> modifyProduct(HttpServletRequest request){
