@@ -13,7 +13,7 @@ public class PathUtil {
 		if (os.toLowerCase().startsWith("win")) {
 			basePath = "D:/projectdev/image";
 		} else {
-			basePath = "/home/xiangze/image/";
+			basePath = "/home/xiangze/image";
 		}
 		basePath = basePath.replace("/", seperator);
 		return basePath;
@@ -25,7 +25,7 @@ public class PathUtil {
 	 * @return
 	 */
 	public static String getShopImagePath(long shopId) {
-		String imagePath = "/upload/items/shop"+shopId+"/";
+		String imagePath = "/upload/items/shop/"+shopId+"/";
 		return imagePath.replace("/", seperator);
 	}
 
