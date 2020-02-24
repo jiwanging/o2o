@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.felix.o2o.util.SignUtil;
+import com.felix.o2o.util.wechat.SignUtil;
 
 @Controller
 //一会在设置的URL里面就设置上这个路由

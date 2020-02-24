@@ -1,4 +1,4 @@
-package com.felix.o2o.util;
+package com.felix.o2o.util.wechat;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
