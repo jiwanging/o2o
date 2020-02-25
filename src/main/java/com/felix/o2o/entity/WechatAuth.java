@@ -6,6 +6,15 @@ public class WechatAuth {
 	private Long wechatAuthId;
 	private String openId;
 	private Date createTime;
+	private Long userId;
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	private PersonInfo personInfo;
 
 	public Long getWechatAuthId() {

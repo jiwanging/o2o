@@ -21,6 +21,8 @@ public class WechatController {
 
     private static Logger log = LoggerFactory.getLogger(WechatController.class);
 
+    
+    
     @RequestMapping(method = { RequestMethod.GET })
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         log.debug("weixin get...");

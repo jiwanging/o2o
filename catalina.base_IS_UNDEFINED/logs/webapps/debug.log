@@ -1,3 +1,38 @@
-2020-02-23 12:00:22.240[main]DEBUGcom.felix.o2o.dao.AreaDao.queryArea-==>  Preparing: SELECT area_id, area_name, priority, create_time, last_edit_time FROM tb_area ORDER BY priority DESC 
-2020-02-23 12:00:22.433[main]DEBUGcom.felix.o2o.dao.AreaDao.queryArea-==> Parameters: 
-2020-02-23 12:00:22.547[main]DEBUGcom.felix.o2o.dao.AreaDao.queryArea-<==      Total: 2
+2020-02-24 20:50:28.797[main]DEBUGcom.felix.o2o.dao.AreaDao.queryArea-==>  Preparing: SELECT area_id, area_name, priority, create_time, last_edit_time FROM tb_area ORDER BY priority DESC 
+2020-02-24 20:50:28.879[main]DEBUGcom.felix.o2o.dao.AreaDao.queryArea-==> Parameters: 
+2020-02-24 20:50:28.997[main]DEBUGcom.felix.o2o.dao.AreaDao.queryArea-<==      Total: 2
+2020-02-24 20:53:52.312[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==>  Preparing: INSERT INTO tb_person_info(name,gender,email,profile_img,user_type, create_time,last_edit_time,enable_status) VALUES (?,?,?,?, ?,?,?,?) 
+2020-02-24 20:53:52.363[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==> Parameters: felix(String), ÄÐ(String), 119000@qq.com(String), null, null, 2020-02-24 20:53:50.613(Timestamp), null, 1(Integer)
+2020-02-24 20:57:40.239[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==>  Preparing: INSERT INTO tb_person_info(name,gender,email,profile_img,user_type, create_time,last_edit_time,enable_status) VALUES (?,?,?,?, ?,?,?,?) 
+2020-02-24 20:57:40.303[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==> Parameters: felix(String), ÄÐ(String), 119000@qq.com(String), null, null, 2020-02-24 20:57:38.578(Timestamp), null, 1(Integer)
+2020-02-24 20:59:34.522[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==>  Preparing: INSERT INTO tb_person_info(name,gender,email,profile_img,user_type, create_time,last_edit_time,enable_status) VALUES (?,?,?,?, ?,?,?,?) 
+2020-02-24 20:59:34.577[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==> Parameters: felix(String), ÄÐ(String), 119000@qq.com(String), null, 1(Integer), 2020-02-24 20:59:32.473(Timestamp), null, 1(Integer)
+2020-02-24 20:59:34.699[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-<==    Updates: 1
+2020-02-24 21:01:00.237[main]DEBUGc.felix.o2o.dao.PersonInfoDao.queryPersonInfoById-==>  Preparing: SELECT user_id, name, gender, email, profile_img, user_type, create_time, last_edit_time, enable_status FROM tb_person_info WHERE user_id = ? 
+2020-02-24 21:01:00.281[main]DEBUGc.felix.o2o.dao.PersonInfoDao.queryPersonInfoById-==> Parameters: 2(Long)
+2020-02-24 21:01:00.442[main]DEBUGc.felix.o2o.dao.PersonInfoDao.queryPersonInfoById-<==      Total: 1
+2020-02-24 21:07:50.012[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==>  Preparing: INSERT INTO tb_wechat_auth(user_id,open_id,create_time) VALUES (?,?,?) 
+2020-02-24 21:14:58.907[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==>  Preparing: INSERT INTO tb_wechat_auth(user_id,open_id,create_time) VALUES (?,?,?) 
+2020-02-24 21:20:45.509[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==>  Preparing: INSERT INTO tb_wechat_auth(user_id,open_id,create_time) VALUES (?,?,?) 
+2020-02-24 21:20:45.559[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==> Parameters: 1(Long), 12345(String), 2020-02-24 21:20:43.918(Timestamp)
+2020-02-24 21:20:45.701[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-<==    Updates: 1
+2020-02-24 21:22:17.302[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-==>  Preparing: SELECT w.wechat_auth_id, w.user_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE w.open_id = ? 
+2020-02-24 21:22:17.352[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-==> Parameters: 12345(String)
+2020-02-24 21:22:17.468[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-<==      Total: 1
+2020-02-24 21:23:29.289[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-==>  Preparing: SELECT w.wechat_auth_id, w.user_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE w.open_id = ? 
+2020-02-24 21:23:29.328[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-==> Parameters: 12345(String)
+2020-02-24 21:23:29.421[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-<==      Total: 1
+2020-02-24 21:23:55.910[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-==>  Preparing: SELECT w.wechat_auth_id, w.user_id, w.open_id, w.create_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.create_time, p.last_edit_time, p.enable_status FROM tb_wechat_auth w LEFT JOIN tb_person_info p ON w.user_id = p.user_id WHERE w.open_id = ? 
+2020-02-24 21:23:55.954[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-==> Parameters: 12345(String)
+2020-02-24 21:23:56.067[main]DEBUGc.f.o2o.dao.WechatAuthDao.queryWechatInfoByOpenId-<==      Total: 1
+2020-02-24 23:04:54.574[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==>  Preparing: INSERT INTO tb_person_info(name,gender,email,profile_img,user_type, create_time,last_edit_time,enable_status) VALUES (?,?,?,?, ?,?,?,?) 
+2020-02-24 23:04:54.693[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==> Parameters: felix_woman(String), Å®(String), 129000@qq.com(String), null, 1(Integer), 2020-02-24 23:04:54.544(Timestamp), null, 1(Integer)
+2020-02-24 23:04:54.790[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-<==    Updates: 1
+2020-02-24 23:04:54.798[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==>  Preparing: INSERT INTO tb_wechat_auth(user_id,open_id,create_time) VALUES (?,?,?) 
+2020-02-24 23:04:54.800[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==> Parameters: 1(Long), 12345(String), 2020-02-24 23:04:54.544(Timestamp)
+2020-02-24 23:05:27.657[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==>  Preparing: INSERT INTO tb_person_info(name,gender,email,profile_img,user_type, create_time,last_edit_time,enable_status) VALUES (?,?,?,?, ?,?,?,?) 
+2020-02-24 23:05:27.762[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-==> Parameters: felix_woman(String), Å®(String), 129000@qq.com(String), null, 1(Integer), 2020-02-24 23:05:27.627(Timestamp), null, 1(Integer)
+2020-02-24 23:05:28.045[main]DEBUGcom.felix.o2o.dao.PersonInfoDao.insertPersonInfo-<==    Updates: 1
+2020-02-24 23:05:28.055[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==>  Preparing: INSERT INTO tb_wechat_auth(user_id,open_id,create_time) VALUES (?,?,?) 
+2020-02-24 23:05:28.057[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-==> Parameters: 1(Long), 12345678(String), 2020-02-24 23:05:27.627(Timestamp)
+2020-02-24 23:05:28.159[main]DEBUGcom.felix.o2o.dao.WechatAuthDao.insertWechatAuth-<==    Updates: 1
