@@ -16,8 +16,16 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- 1. 配置解析properties文件的工具类 -->
-	<context:property-placeholder location="classpath:jdbc.properties"/>
-
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/> -->
+	<bean class="com.felix.o2o.util.EncryptPropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value = "UTF-8"/>
+    </bean>
 	<!-- 2. 注册c3p0数据源   name值是固定的，c3p0.ComboPooledDataSource的设置-->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${jdbc.driver}"/>

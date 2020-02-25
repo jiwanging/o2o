@@ -78,9 +78,11 @@ public class ShopManagementController {
 	@ResponseBody
 	private Map<String ,Object> getShopList(HttpServletRequest request){
 		Map<String ,Object> modelMap = new HashMap<String ,Object>();
-		PersonInfo user = new PersonInfo(); 
+		/*硬编码 
+		 * PersonInfo user = new PersonInfo(); 
 		user.setUserId(1L);
-		user.setName("test");
+		user.setName("test");*/
+		PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");//从session中获取 而不是硬编码
 		request.getSession().setAttribute("user",user);
 		user = (PersonInfo) request.getSession().
 				getAttribute("user");
@@ -91,6 +93,8 @@ public class ShopManagementController {
 			int pageSize = 100;
 			ShopExecution se = shopService.getShopList(shopConditon, pageIndex, pageSize);
 			modelMap.put("shopList", se.getShopList());
+			//列出店铺成功之后，将店铺放入session中作为权限验证依据，即该账号只能操作它自己的店铺
+			request.getSession().setAttribute("shoplist", se.getShopList());
 			modelMap.put("user", user);
 			modelMap.put("success", true);
 		}catch(Exception e) {

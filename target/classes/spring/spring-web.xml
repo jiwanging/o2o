@@ -47,4 +47,31 @@
 	<!-- 4.扫描web相关的bean --> 
 	<!-- 激活组件扫描功能,扫描aop的相关组件组件 --> 
 	<context:component-scan base-package="com.felix.o2o.web"/> 
+	<!-- 4.权限拦截器 -->
+	
+	<mvc:interceptors>
+		<!-- 校验是否已登录了店家管理系统的拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/shopadmin/**"/>
+			<bean id="ShopInterceptor"
+				class="com.felix.o2o.interceptor.shopadmin.ShopLoginInterceptor"/>
+		</mvc:interceptor> 
+		<!-- 校验是否对该店铺有操作权限的拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/shopadmin/**" />
+			<!-- shoplist page -->
+			<mvc:exclude-mapping path="/shopadmin/shoplist" />
+			<mvc:exclude-mapping path="/shopadmin/getshoplist" />
+			<!-- shopregister page -->
+			<mvc:exclude-mapping path="/shopadmin/getshopinitinfo" />
+			<mvc:exclude-mapping path="/shopadmin/registershop" />
+			<mvc:exclude-mapping path="/shopadmin/shopoperation" />
+			<!-- shopmanage page -->
+			<mvc:exclude-mapping path="/shopadmin/shopmanagement" />
+			<mvc:exclude-mapping path="/shopadmin/getshopmanagementinfo" />
+			<bean id="ShopPermissionInterceptor"
+				class="com.felix.o2o.interceptor.shopadmin.ShopPermissionInterceptor" />
+		</mvc:interceptor> 
+	</mvc:interceptors>
+	
 </beans> 

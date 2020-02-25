@@ -15,9 +15,23 @@ public class AreaServiceTest extends BaseTest{
 	@Autowired
 	private AreaService areaServiceImpl;//如何找到具体实现类的呢
 	
+	@Autowired
+    private CacheService cacheService;
+	
 	@Test
 	public void testareaService() {
 		List<Area> list = areaServiceImpl.getAreaList();
 		assertEquals("西苑", list.get(0).getAreaName());
 	}
+	
+	/**
+	 * 测试redis的方法
+	 */
+	@Test
+    public void testGetAreaList() {
+        List<Area> areaList = areaServiceImpl.getAreaList();
+        assertEquals("西苑", areaList.get(0).getAreaName());
+        cacheService.removeFromCache(areaServiceImpl.AREALISTKEY);
+        areaList = areaServiceImpl.getAreaList();
+    }
 }

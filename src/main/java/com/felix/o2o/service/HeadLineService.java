@@ -9,6 +9,7 @@ import com.felix.o2o.entity.HeadLine;
 
 public interface HeadLineService {
 	
+    public  static  final String HLLISTKEY="headlinelist";
 	/**
 	 * 
 	 * @param headLineCondition
